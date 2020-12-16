@@ -9,11 +9,8 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  // @Input()
-  // products!: Observable<Product[]>;
-
   @Input()
-  products2!: Product[];
+  products!: Observable<Product[]>;
 
   constructor() {}
 

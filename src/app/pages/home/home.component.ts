@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -12,8 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  // products: Observable<Product[]>;
-  products2!: Product[];
+  products: Observable<Product[]>;
   categories: Observable<Category[]>;
   category: number = 0;
 
@@ -22,8 +22,10 @@ export class HomeComponent implements OnInit {
     private categoryService: CategoryService,
     private cartService: CartService
   ) {
-    // this.products = this.productService.getProducts(this.category);
-    this.addQuantityFromCart();
+    this.productService.getProducts(this.category);
+    this.products = this.productService.products$.pipe(
+      mergeMap((list) => this.addQuantityFromCart(list))
+    );
     this.categories = this.categoryService.getCategories();
   }
 
@@ -31,18 +33,17 @@ export class HomeComponent implements OnInit {
 
   changeCategory(categoryId: number) {
     this.category = categoryId;
-    // this.products = this.productService.getProducts(this.category);
-    this.addQuantityFromCart();
+    this.productService.getProducts(this.category);
   }
 
-  private addQuantityFromCart() {
-    this.productService.getProducts(this.category).subscribe((resp) => {
-      this.cartService.cart.subscribe((r) => {
-        this.products2 = resp.map((p) => {
-          const prod = r.find((el) => el.id === p.id);
+  private addQuantityFromCart(list: Product[]) {
+    return this.cartService.cart$.pipe(
+      map((cartProducts) =>
+        list.map((p) => {
+          const prod = cartProducts.find((el) => el.id === p.id);
           return { ...p, quantity: prod ? prod.quantity : 0 };
-        });
-      });
-    });
+        })
+      )
+    );
   }
 }

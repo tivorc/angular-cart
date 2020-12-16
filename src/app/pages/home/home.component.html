@@ -1,12 +1,12 @@
-<div class="container mt-3">
+<div class="container mt-5">
   <div class="row">
     <div
-      class="col-2"
+      class="col-2 mt-4"
       category-list
       [categories]="categories"
       [selectedCategory]="category"
       (category)="changeCategory($event)"
     ></div>
-    <div class="col-10" product-list [products2]="products2"></div>
+    <div class="col-10 mt-4" product-list [products]="products"></div>
   </div>
 </div>

@@ -3,14 +3,15 @@
     style="height: 250px; object-fit: cover"
     [src]="product.image"
     class="card-img-top img-fluid"
-    alt=""
+    [alt]="product.name"
   />
   <div class="card-body p-md-2 p-1">
-    <h6 class="card-title">{{ product.name }}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">S/. {{ product.price }}</h6>
-    <a class="link-success" [routerLink]="['product', product.id]"
-      >Ver producto</a
+    <a [routerLink]="['product', product.id]" class="link-dark"
+      ><h6 class="card-title">
+        {{ product.name }}
+      </h6></a
     >
+    <h6 class="card-subtitle mb-2 text-muted">S/. {{ product.price }}</h6>
   </div>
   <div
     product-controls

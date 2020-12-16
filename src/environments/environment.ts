@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/',
+  apiUrl: 'https://ng-cart-api.herokuapp.com/',
   endpoints: {
     products: 'products',
     categories: 'categories',

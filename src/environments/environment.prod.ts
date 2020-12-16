@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://ng-cart-api.herokuapp.com/',
+  endpoints: {
+    products: 'products',
+    categories: 'categories',
+  },
 };

@@ -9,10 +9,12 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  cartItems: Observable<number>;
+  total: Observable<number>;
 
   constructor(private cartService: CartService) {
-    this.cartItems = this.cartService.cart.pipe(map((i) => i.length));
+    this.total = this.cartService.cart$.pipe(
+      map((i) => i.reduce((a, b) => a + (b.quantity || 0), 0))
+    );
   }
 
   ngOnInit(): void {}

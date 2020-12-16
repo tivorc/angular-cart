@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
   ) {
     this.activatedRoute.params.subscribe((response) => {
       this.productService.getProduct(response.id).subscribe((prod) => {
-        this.cartService.cart.subscribe((resp) => {
+        this.cartService.cart$.subscribe((resp) => {
           const p = resp.find((l) => l.id === prod.id);
           this.product = p || prod;
         });

@@ -7,9 +7,9 @@ import { Product } from '../models/product';
 })
 export class CartService {
   private products: Product[] = [];
-  private _cart = new BehaviorSubject<Product[]>([]);
+  private car = new BehaviorSubject<Product[]>([]);
 
-  cart = this._cart.asObservable();
+  cart$ = this.car.asObservable();
 
   constructor() {}
 
@@ -20,7 +20,7 @@ export class CartService {
     } else {
       this.products[index].quantity = (this.products[index].quantity || 0) + 1;
     }
-    this._cart.next(this.products);
+    this.car.next(this.products);
   }
 
   removeCart(productId: number) {
@@ -33,11 +33,11 @@ export class CartService {
       this.products[index].quantity = quantity;
     }
 
-    this._cart.next(this.products);
+    this.car.next(this.products);
   }
 
   emptyCart() {
     this.products = [];
-    this._cart.next(this.products);
+    this.car.next(this.products);
   }
 }
