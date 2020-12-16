@@ -22,7 +22,6 @@ export class CartComponent implements OnInit {
     this.itemss = this.cartService.cart$.pipe(
       map((i) => {
         const amount = i.reduce((a, b) => a + (b.quantity || 0) * b.price, 0);
-        console.log({ total: i.length, amount });
         return { total: i.length, amount };
       })
     );
