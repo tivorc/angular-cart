@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductComponent } from './pages/product/product.component';
-import { CardComponent } from './components/card/card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { ProductControlsComponent } from './components/product-controls/product-controls.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +20,15 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     NavbarComponent,
     HomeComponent,
     ProductComponent,
-    CardComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductListComponent,
+    CategoryListComponent,
+    ProductItemComponent,
+    CartComponent,
+    ProductControlsComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
