@@ -6,7 +6,9 @@
         class="list-group-item pointer"
         *ngFor="let c of categories | async"
         (click)="handlerClick(c.id)"
-        [ngClass]="{ 'text-white bg-dark': c.id === selectedCategory }"
+        [ngClass]="{
+          'text-white bg-secondary fw-bold': c.id === selectedCategory
+        }"
       >
         {{ c.name }}
       </li>

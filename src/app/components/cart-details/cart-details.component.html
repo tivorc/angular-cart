@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <p class="my-auto">
+      Tiene
+      {{ (items | async)?.total }}
+      productos en el carrito
+    </p>
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="!(items | async)?.total"
+      (click)="emptyCart()"
+    >
+      Limpiar Carrito
+    </button>
+  </div>
+  <div class="card-body p-0">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th class="text-center" colspan="2">Producto</th>
+          <th class="text-center">Cantidad</th>
+          <th class="text-end pe-4">Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products | async">
+          <td class="text-center p-1">
+            <img
+              class="rounded-circle"
+              [src]="p.image"
+              alt="Road-150 Red, 62"
+              width="80px"
+              height="80px"
+            />
+          </td>
+          <td class="align-middle p-1 text-center">
+            <a class="link-dark" [routerLink]="['/product', p.id]">{{
+              p.name
+            }}</a>
+          </td>
+          <td class="text-center align-middle p-1">
+            <div
+              product-controls
+              [quantity]="p.quantity || 0"
+              (add)="addToCart(p)"
+              (remove)="removeToCart(p)"
+              class="card-footer p-0"
+            ></div>
+          </td>
+          <td class="text-end align-middle pe-4">
+            {{ p.price.toFixed(2) }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" class="text-end fw-bold pe-4">
+            S/
+            {{ (items | async)?.amount?.toFixed(2) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <button class="btn btn-default" routerLink="/">Regresar</button>
+    <button
+      *ngIf="(items | async)?.total"
+      class="btn btn-success ms-3"
+      (click)="confirm()"
+    >
+      Confirmar compra
+    </button>
+  </div>
+</div>

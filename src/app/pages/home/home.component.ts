@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit {
     private cartService: CartService
   ) {
     this.productService.getProducts(this.category);
+    this.categories = this.categoryService.getCategories();
     this.products = this.productService.products$.pipe(
       mergeMap((list) => this.addQuantityFromCart(list))
     );
-    this.categories = this.categoryService.getCategories();
   }
 
   ngOnInit(): void {}

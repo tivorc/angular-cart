@@ -1,64 +1,11 @@
 <div class="container mt-5">
   <div class="row">
     <h1 class="mt-4">Carrito de compras</h1>
-    <div class="col-10">
-      <div class="card">
-        <div class="card-header bg-white d-flex justify-content-between">
-          <p>
-            Tiene
-            {{ (itemss | async)?.total }}
-            productos en el carrito
-          </p>
-          <div class="btn btn-outline-secondary" (click)="emptyCart()">
-            Limpiar Carrito
-          </div>
-        </div>
-        <div class="card-body p-0">
-          <table class="table mb-0">
-            <thead>
-              <tr>
-                <th class="text-center" colspan="2">Producto</th>
-                <th class="text-center">Cantidad</th>
-                <th class="text-right pr-4">Precio</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of products | async">
-                <td class="text-center p-1">
-                  <img
-                    class="rounded-circle"
-                    [src]="p.image"
-                    alt="Road-150 Red, 62"
-                    width="80px"
-                    height="80px"
-                  />
-                </td>
-                <td class="align-middle p-1 text-center">
-                  <a class="link-dark" [routerLink]="['/product', p.id]">{{
-                    p.name
-                  }}</a>
-                </td>
-                <td class="text-center align-middle p-1">
-                  <div
-                    product-controls
-                    [quantity]="p.quantity || 0"
-                    (add)="addToCart(p)"
-                    (remove)="removeToCart(p)"
-                    class="card-footer p-0"
-                  ></div>
-                </td>
-                <td class="text-right align-middle pr-4">{{ p.price }}</td>
-              </tr>
-              <tr>
-                <td colspan="4" class="text-right font-weight-bold pr-4">
-                  S/
-                  {{ (itemss | async)?.amount }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <div
+      class="col-10"
+      cart-details
+      [products]="products"
+      [items]="items"
+    ></div>
   </div>
 </div>

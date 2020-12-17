@@ -13,6 +13,7 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductControlsComponent } from './components/product-controls/product-controls.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProductControlsComponent } from './components/product-controls/product-
     ProductItemComponent,
     CartComponent,
     ProductControlsComponent,
+    CartDetailsComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],

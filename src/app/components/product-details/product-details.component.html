@@ -1,1 +1,29 @@
-<p>product-details works!</p>
+<div class="col-4 mt-3">
+  <img
+    style="object-fit: cover; width: 100%; max-width: 450px"
+    [src]="product.image"
+    [alt]="product.name"
+  />
+</div>
+<div class="col-8 d-flex align-items-center">
+  <div class="row">
+    <h1>{{ product.name }}</h1>
+    <p class="mb-2">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente cum
+      excepturi reprehenderit, veniam ullam quas, sed facilis, vero doloribus
+      itaque sequi cumque eum quisquam perferendis odit sint perspiciatis
+      laudantium atque.
+    </p>
+    <p class="mb-1">Precio: S/ {{ product.price }}</p>
+    <p class="mb-2">Categoría: {{ product.category.name }}</p>
+    <div class="col-6">
+      <div
+        product-controls
+        [quantity]="product.quantity || 0"
+        (add)="addToCart(product)"
+        (remove)="removeToCart(product)"
+        class="card-footer p-0"
+      ></div>
+    </div>
+  </div>
+</div>

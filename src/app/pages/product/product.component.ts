@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,39 +12,34 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  product: Product = {
-    id: 0,
-    name: '',
-    description: '',
-    price: 0,
-    image: '',
-    quantity: 0,
-    category: { id: 0 },
-  };
+  product!: Observable<Product>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService
   ) {
-    this.activatedRoute.params.subscribe((response) => {
-      this.productService.getProduct(response.id).subscribe((prod) => {
-        this.cartService.cart$.subscribe((resp) => {
-          const p = resp.find((l) => l.id === prod.id);
-          this.product = p || prod;
-        });
-      });
-    });
+    const productId$ = this.activatedRoute.params.pipe(
+      map<Params, number>((params) => params.id)
+    );
+
+    this.product = productId$.pipe(
+      mergeMap((productId) => this.getProduct(productId))
+    );
   }
 
   ngOnInit(): void {}
 
-  addToCart() {
-    this.cartService.addCart(this.product);
-  }
-
-  removeToCart() {
-    if (!this.product.quantity) return;
-    this.cartService.removeCart(this.product.id);
+  getProduct(productId: number) {
+    return this.productService.getProduct(productId).pipe(
+      mergeMap((product) => {
+        return this.cartService.cart$.pipe(
+          map((products) => {
+            const productCart = products.find((p) => p.id === product.id);
+            return productCart || product;
+          })
+        );
+      })
+    );
   }
 }
