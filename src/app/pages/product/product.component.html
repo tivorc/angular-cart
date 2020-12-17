@@ -1,7 +1,7 @@
 <div class="container mt-5" *ngIf="product | async as p">
   <div class="row" product-details [product]="p"></div>
   <div class="text-center">
-    <button class="btn btn-secondary" routerLink="/">Regresar al inicio</button>
+    <button class="btn btn-default" routerLink="/">Regresar al inicio</button>
     <button class="btn btn-success ms-3" routerLink="/cart">
       Ir al carrito
     </button>
